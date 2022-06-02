@@ -48,15 +48,13 @@ async function getLedgerAddress() {
   })
 }
 
-async function signPersonalMessageOnLedger (messageHex) {
-  console.log(messageHex)
+async function signPersonalMessageOnLedger (message) {
   return new Promise (async (resolve, reject) => {
     try {
       const eth = await LedgerEth.getInstance();
-      console.log(eth)
-      console.log(_derivationPath)
-      console.log(messageHex)
-      resolve(eth.signPersonalMessage(_derivationPath, messageHex));
+      const messageHex = Buffer.from(message).toString('hex')
+      const signature = await eth.signPersonalMessage(_derivationPath, messageHex)
+      resolve(JSON.stringify(signature));
     } catch (e) {
       console.log(e)
       reject("Erro ao assinar a mensagem.");

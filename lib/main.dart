@@ -1,5 +1,3 @@
-import 'dart:js' as js;
-
 import 'package:flutter/material.dart';
 import 'package:js/js_util.dart';
 
@@ -34,8 +32,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var ledgerAddress = '';
+
   void getLedger() async {
     promiseToFuture(getLedgerAddress()).then((value) {
+      setState(() {
+        ledgerAddress = value;
+      });
       print(value);
     }).catchError((error) {
       print(error);
@@ -43,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void signMessage() async {
-    promiseToFuture(signPersonalMessageOnLedger('teste')).then((value) {
+    promiseToFuture(signPersonalMessageOnLedger('222')).then((value) {
       print(value);
     }).catchError((error) {
       print(error);
@@ -59,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            ElevatedButton(
+            /*ElevatedButton(
               onPressed: () {
                 final val =
                     js.context.callMethod('resetCurrentLedgetEthInstance', []);
@@ -74,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(val);
               },
               child: const Text('getCurrentLedgetEthInstance'),
-            ),
+            ),*/
             ElevatedButton(
               onPressed: getLedger,
               child: const Text('getLedgerAddress'),
@@ -83,13 +86,13 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: signMessage,
               child: const Text('signPersonalMessageOnLedger'),
             ),
-            ElevatedButton(
+            /*ElevatedButton(
               onPressed: () {
                 final val = js.context.callMethod('teste', []);
                 print(val);
               },
               child: const Text('teste'),
-            ),
+            ),*/
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.

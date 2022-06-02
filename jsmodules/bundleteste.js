@@ -23435,6 +23435,7 @@ try {
 } catch (er) {}
 
 },{"./iterator.js":149}],151:[function(require,module,exports){
+(function (Buffer){(function (){
 var Eth = require("@ledgerhq/hw-app-eth");
 var TransportWebUSB = require("@ledgerhq/hw-transport-webusb");
 
@@ -23485,15 +23486,13 @@ async function getLedgerAddress() {
   })
 }
 
-async function signPersonalMessageOnLedger (messageHex) {
-  console.log(messageHex)
+async function signPersonalMessageOnLedger (message) {
   return new Promise (async (resolve, reject) => {
     try {
       const eth = await LedgerEth.getInstance();
-      console.log(eth)
-      console.log(_derivationPath)
-      console.log(messageHex)
-      resolve(eth.signPersonalMessage(_derivationPath, messageHex));
+      const messageHex = Buffer.from(message).toString('hex')
+      const signature = await eth.signPersonalMessage(_derivationPath, messageHex)
+      resolve(JSON.stringify(signature));
     } catch (e) {
       console.log(e)
       reject("Erro ao assinar a mensagem.");
@@ -23511,4 +23510,5 @@ window.getCurrentLedgetEthInstance = getCurrentLedgetEthInstance;
 window.getLedgerAddress = getLedgerAddress;
 window.signPersonalMessageOnLedger = signPersonalMessageOnLedger;
 window.teste = teste;
-},{"@ledgerhq/hw-app-eth":59,"@ledgerhq/hw-transport-webusb":67}]},{},[151]);
+}).call(this)}).call(this,require("buffer").Buffer)
+},{"@ledgerhq/hw-app-eth":59,"@ledgerhq/hw-transport-webusb":67,"buffer":3}]},{},[151]);
