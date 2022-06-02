@@ -1,5 +1,9 @@
-import 'package:flutter/material.dart';
 import 'dart:js' as js;
+
+import 'package:flutter/material.dart';
+import 'package:js/js_util.dart';
+
+import 'ledger.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,6 +34,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  void getLedger() async {
+    promiseToFuture(getLedgerAddress()).then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
+  void signMessage() async {
+    promiseToFuture(signPersonalMessageOnLedger('teste')).then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,18 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('getCurrentLedgetEthInstance'),
             ),
             ElevatedButton(
-              onPressed: () {
-                final val = js.context.callMethod('getLedgerAddress', []);
-                print(val);
-              },
+              onPressed: getLedger,
               child: const Text('getLedgerAddress'),
             ),
             ElevatedButton(
-              onPressed: () {
-                final val =
-                    js.context.callMethod('signPersonalMessageOnLedger', []);
-                print(val);
-              },
+              onPressed: signMessage,
               child: const Text('signPersonalMessageOnLedger'),
             ),
             ElevatedButton(

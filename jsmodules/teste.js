@@ -6,7 +6,7 @@ var LedgerEth = (function () {
 
   async function createInstance() {
     const transport = await TransportWebUSB.default.create();
-    return new Eth(transport);
+    return new Eth.default(transport);
   }
 
   return {
@@ -36,21 +36,32 @@ function getCurrentLedgetEthInstance () {
 }
 
 async function getLedgerAddress() {
-  try {
-    const eth = await LedgerEth.getInstance();
-
-    const address = await eth.getAddress(_derivationPath);
-
-    return address;
-  } catch (e) {
-    return null;
-  }
+  return new Promise (async (resolve, reject) => {
+    try {
+      const eth = await LedgerEth.getInstance();
+  
+      const address = await eth.getAddress(_derivationPath);
+     resolve(address.address);
+    } catch (e) {
+      reject("Erro ao conectar na Ledger.");
+    }
+  })
 }
 
 async function signPersonalMessageOnLedger (messageHex) {
-  const eth = await LedgerEth.getInstance();
-
-  return eth.signPersonalMessage(_derivationPath, messageHex);
+  console.log(messageHex)
+  return new Promise (async (resolve, reject) => {
+    try {
+      const eth = await LedgerEth.getInstance();
+      console.log(eth)
+      console.log(_derivationPath)
+      console.log(messageHex)
+      resolve(eth.signPersonalMessage(_derivationPath, messageHex));
+    } catch (e) {
+      console.log(e)
+      reject("Erro ao assinar a mensagem.");
+    }
+  })
 };
 
 function teste() {
