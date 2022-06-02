@@ -1,0 +1,31 @@
+{
+  "id": "loopipay",
+  "name": "LoopiPay",
+  "url": "http://localhost:63211/#/",
+  "homepageUrl": "http://localhost:63211/#/",
+  "icon": "https://firebasestorage.googleapis.com/v0/b/loopi-crypto-dev.appspot.com/o/ledger-live%2Ficon-yellow-blue.jpg?alt=media&token=9da2acec-1337-400f-bcaf-1952e92e7607",
+  "platform": "all",
+  "apiVersion": "0.0.1",
+  "manifestVersion": "1",
+  "branch": "stable",
+  "categories": ["buy"],
+  "currencies": [
+    "ethereum",
+    "polygon",
+    "bsc"
+  ],
+  "content": {
+    "shortDescription": {
+      "en": "The fastest and simplest way to buy crypto in Brazil, use PIX and add crypto direct to your wallet."
+    },
+    "description": {
+      "en": "The fastest and simplest way to buy crypto in Brazil, use PIX and add crypto direct to your wallet."
+    }
+  },
+  "permissions": [
+    {
+      "method": "*"
+    }
+  ],
+  "domains": ["https://*"]
+}

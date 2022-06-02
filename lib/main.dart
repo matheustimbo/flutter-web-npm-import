@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:js/js_util.dart';
 
 import 'ledger.dart';
+import 'ledgerLive.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void getLedgerLive() {
+    promiseToFuture(getLedgerLiveAccounts()).then((value) {
+      print(value);
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,6 +102,10 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('teste'),
             ),*/
+            ElevatedButton(
+              onPressed: getLedgerLive,
+              child: const Text('LedgerLive'),
+            ),
           ],
         ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
