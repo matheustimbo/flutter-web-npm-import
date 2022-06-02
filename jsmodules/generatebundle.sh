@@ -1,0 +1,1 @@
+browserify teste.js -o bundleteste.js
